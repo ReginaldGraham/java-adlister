@@ -14,6 +14,6 @@
     <title>Title</title>
 </head>
 <body>
-
+<%@ include file="footer.jsp" %>
 </body>
 </html>
