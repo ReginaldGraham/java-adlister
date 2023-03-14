@@ -1,3 +1,7 @@
+import models.Album;
+import models.Author;
+import models.Quote;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +14,9 @@ public class BeanTest {
 
         ArrayList<Album> albums= new ArrayList<>(List.of(album1,album2));
 
-//        Author author1= new Author("Reginald", "Graham");
+//        models.Author author1= new models.Author("Reginald", "Graham");
 
-//        Author author2 = new Author("Reggie","Gram");
+//        models.Author author2 = new models.Author("Reggie","Gram");
 
         Quote quote1 = new Quote(new ArrayList<>(List.of(new Author("Reginald","Graham"))),"to be or not to be");
 
