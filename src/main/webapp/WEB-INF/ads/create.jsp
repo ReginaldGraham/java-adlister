@@ -1,13 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Create a new Ad" />
+        <jsp:param name="title" value="Create a new models.Ad" />
     </jsp:include>
 </head>
 <body>
     <div class="container">
-        <h1>Create a new Ad</h1>
+        <h1>Create a new models.Ad</h1>
         <form action="/ads/create" method="post">
             <div class="form-group">
                 <label for="title">Title</label>
@@ -19,6 +20,10 @@
             </div>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
+<%--<c:forEach>--%>
+<%--    <h1> AD:${}</h1>--%>
+<%--    <h3>Descrpition${}</h3>--%>
+<%--</c:forEach>--%>
     </div>
 </body>
 </html>
