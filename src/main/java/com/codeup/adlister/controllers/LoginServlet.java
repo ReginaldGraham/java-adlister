@@ -1,13 +1,16 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
+import com.codeup.adlister.dao.MySQLUsersDao;
 import com.codeup.adlister.models.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.jstl.core.Config;
 import java.io.IOException;
 
 @WebServlet(name = "controllers.LoginServlet", urlPatterns = "/login")
@@ -30,9 +33,13 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        boolean validAttempt = password.equals(user.getPassword());
 
-        if (validAttempt) {
+        MySQLUsersDao mySQLUsersDao=new MySQLUsersDao();
+        boolean checkPassword=BCrypt.checkpw(password,mySQLUsersDao.hash(password));
+//        boolean validAttempt = hash.equals(user.getPassword());
+        System.out.println(checkPassword);
+
+        if (checkPassword) {
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");
         } else {

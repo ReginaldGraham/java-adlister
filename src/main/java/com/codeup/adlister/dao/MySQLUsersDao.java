@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 
@@ -20,6 +21,7 @@ public class MySQLUsersDao implements Users {
             throw new RuntimeException("Error connecting to the database!", e);
         }
     }
+    public MySQLUsersDao(){}
 
 
     @Override
@@ -34,6 +36,14 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+    public String hash(String password) {
+        if (password != null) {
+            return BCrypt.hashpw(password, BCrypt.gensalt());
+        }
+        return null;
+    }
+////return null;
+//    }
     @Override
     public Long insert(User user) {
         String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
@@ -41,7 +51,7 @@ public class MySQLUsersDao implements Users {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
+            stmt.setString(3,  hash(user.getPassword()));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
